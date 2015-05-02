@@ -114,8 +114,8 @@ var disque = require('thunk-disque');
 #### disque.createClient([port], [host], [options])
 #### disque.createClient([addressArray], [options])
 
-- `port`: {Number}, default: `6379`;
-- `host`: {String}, default: `'localhost'`;
+- `port`: {Number}, default: `7711`;
+- `host`: {String}, default: `'127.0.0.1'`;
 - `options`: {Object}, default: `{}`;
   - `handleError`: {Boolean}, *Optional*, Handle client error event. Default: `true`.
   - `authPass`: {String}, *Optional*, Default: `''`.
@@ -150,11 +150,11 @@ Create a disque client, return the client.
 ```js
 // connect to 127.0.0.1:7711
 var client1 = disque.createClient();
-var client5 = disque.createClient(7711, '127.0.0.1');
+var client2 = disque.createClient(7711, '127.0.0.1');
 
 // connect to 127.0.0.1:7711, 127.0.0.1:7712, 127.0.0.1:7713
 // and auto meet them into cluster
-var client6 = disque.createClient([7711, 7712, 7713]);
+var client3 = disque.createClient([7711, 7712, 7713]);
 ```
 
 #### disque.log([...])
