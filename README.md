@@ -4,6 +4,7 @@ A thunk/promise-based disque client, support all disque features.
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
+[![js-standard-style][js-standard-image]][js-standard-url]
 
 ## Features
 
@@ -27,23 +28,23 @@ npm install thunk-disque
 ## Demo
 
 ```js
-var disque = require('thunk-redis');
-var client = disque.createClient([7711, 7712, 7713]);
-var clientP = disque.createClient([7711, 7712, 7713], {usePromise: true});
+var disque = require('thunk-redis')
+var client = disque.createClient([7711, 7712, 7713])
+var clientP = disque.createClient([7711, 7712, 7713], {usePromise: true})
 
 // thunk API
 client.info()(function (err, info) {
-  console.log(err, info);
+  console.log(err, info)
 
-  return this.addjob('queueA', 'Hello', 0);
+  return this.addjob('queueA', 'Hello', 0)
 })(function (err, res) {
-  console.log(err, res);
+  console.log(err, res)
   // null
   // 'DI81250b3ccbac68e6625e79c8e7c5b286b1dcd2ac05a0SQ'
-  return this.show(res);
+  return this.show(res)
 
 })(function (err, res) {
-  console.log(err, res);
+  console.log(err, res)
   // null
   // {
   //   id: 'DI81250b3ccbac68e6625e79c8e7c5b286b1dcd2ac05a0SQ',
@@ -63,24 +64,24 @@ client.info()(function (err, info) {
   //   'next-awake-within': 8639335,
   //   body: 'Hello'
   // }
-  return this.clientEnd();
+  return this.clientEnd()
 });
 
 // promise API
 clientP.info()
-  .then(function(info) {
-    console.log(info);
+  .then(function (info) {
+    console.log(info)
 
-    return clientP.addjob('queueA', 'Hello', 0);
+    return clientP.addjob('queueA', 'Hello', 0)
   })
-  .then(function(res) {
-    console.log(res);
+  .then(function (res) {
+    console.log(res)
     // 'DI81250b3ccbac68e6625e79c8e7c5b286b1dcd2ac05a0SQ'
-    return clientP.show(res);
+    return clientP.show(res)
 
   })
-  .then(function(res) {
-    console.log(res);
+  .then(function (res) {
+    console.log(res)
     // {
     //   id: 'DI81250b3ccbac68e6625e79c8e7c5b286b1dcd2ac05a0SQ',
     //   queue: 'queueA',
@@ -100,15 +101,15 @@ clientP.info()
     //   body: 'Hello'
     // }
   })
-  .catch(function(err) {
-    console.error(err);
-  });
+  .catch(function (err) {
+    console.error(err)
+  })
 ```
 
 ## API
 
 ```js
-var disque = require('thunk-disque');
+var disque = require('thunk-disque')
 ```
 
 #### disque.createClient([port], [host], [options])
@@ -124,19 +125,19 @@ var disque = require('thunk-disque');
 
     **Use default Promise:**
     ```js
-    var disque = require('thunk-disque');
+    var disque = require('thunk-disque')
     var client = disque.createClient({
       usePromise: true
-    });
+    })
     ```
 
     **Use bluebird:**
     ```js
-    var disque = require('thunk-disque');
-    var Bluebird = require('bluebird');
+    var disque = require('thunk-disque')
+    var Bluebird = require('bluebird')
     var client = disque.createClient({
       usePromise: Bluebird
-    });
+    })
     ```
   - `noDelay`: {Boolean}, *Optional*, Default: `true`.
       Disables the Nagle algorithm. By default TCP connections use the Nagle algorithm, they buffer data before sending it off. Setting true for noDelay will immediately fire off data each time socket.write() is called.
@@ -149,19 +150,19 @@ Create a disque client, return the client.
 
 ```js
 // connect to 127.0.0.1:7711
-var client1 = disque.createClient();
-var client2 = disque.createClient(7711, '127.0.0.1');
+var client1 = disque.createClient()
+var client2 = disque.createClient(7711, '127.0.0.1')
 
 // connect to 127.0.0.1:7711, 127.0.0.1:7712, 127.0.0.1:7713
 // and auto meet them into cluster
-var client3 = disque.createClient([7711, 7712, 7713]);
+var client3 = disque.createClient([7711, 7712, 7713])
 ```
 
 #### disque.log([...])
 
 ```js
-var client = disque.createClient();
-client.info()(redis.log);
+var client = disque.createClient()
+client.info()(redis.log)
 ```
 
 ### Events
@@ -215,11 +216,9 @@ client.info()(redis.log);
 
 Tool: **https://github.com/visionmedia/debug**
 
-Debugs: `redis:resp`, `redis:socket`, `redis:command`
-
 **Debug all:**
 ```sh
-DEBUG=redis:* node examples/demo
+DEBUG=disque node examples/demo
 ```
 
 [npm-url]: https://npmjs.org/package/thunk-disque
@@ -227,3 +226,6 @@ DEBUG=redis:* node examples/demo
 
 [travis-url]: https://travis-ci.org/thunks/thunk-disque
 [travis-image]: http://img.shields.io/travis/thunks/thunk-disque.svg
+
+[js-standard-url]: https://github.com/feross/standard
+[js-standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat
