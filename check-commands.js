@@ -7,9 +7,11 @@ var cli = disque.createClient(7711)
 
 cli.info()(function * (err, info) {
   if (err) throw err
-  console.log('Version:', info.redis_version)
+  console.log('Version:', info.disque_version)
 
-  var add = [], discard = [], commandsInfo = {}
+  var add = []
+  var discard = []
+  var commandsInfo = {}
   var commands = yield cli.command()
 
   commands = commands.map(function (command) {
