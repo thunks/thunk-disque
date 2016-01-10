@@ -1,8 +1,9 @@
 language: node_js
 node_js:
-  - "0.10"
-  - "0.12"
-  - "4.2"
-  - "5.1"
-services:
-  - disque-server
+  - "4"
+  - "5"
+before_script:
+  - wget https://github.com/antirez/disque/archive/master.tar.gz -O disque-master.tar.gz
+  - tar xf disque-master.tar.gz && cd disque-master/src/
+  - make && PREFIX=../ make install && cd -
+  - ./disque-master/bin/disque-server &

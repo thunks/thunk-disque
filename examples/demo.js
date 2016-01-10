@@ -13,7 +13,6 @@ client.info()(function (err, info) {
   // null
   // 'DI81250b3ccbac68e6625e79c8e7c5b286b1dcd2ac05a0SQ'
   return this.show(res)
-
 })(function (err, res) {
   console.log(err, res)
 // null

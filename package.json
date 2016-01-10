@@ -1,13 +1,13 @@
 {
   "name": "thunk-disque",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "A thunk/promise-based disque client.",
   "main": "index.js",
   "authors": [
     "Yan Qing <admin@zensh.com>"
   ],
   "scripts": {
-    "test": "standard && gulp test"
+    "test": "standard && mocha -r thunk-mocha test/index.js"
   },
   "repository": {
     "type": "git",
@@ -25,12 +25,12 @@
     "pipelining"
   ],
   "engines": {
-    "node": ">= 0.10.x"
+    "node": ">= 4.0"
   },
   "dependencies": {
     "debug": "^2.2.0",
     "respjs": "^2.0.3",
-    "thunks": "^4.1.0"
+    "thunks": "^4.1.1"
   },
   "devDependencies": {
     "mocha": "^2.3.4",
@@ -42,12 +42,10 @@
     "url": "https://github.com/thunks/thunk-disque/issues"
   },
   "homepage": "https://github.com/thunks/thunk-disque",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "benchmark",
-    "test",
-    "examples",
-    "gulpfile.js"
+  "files": [
+    "README.md",
+    "CHANGELOG.md",
+    "index.js",
+    "lib"
   ]
 }

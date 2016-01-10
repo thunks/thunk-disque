@@ -5,17 +5,17 @@
  * MIT Licensed
  */
 
-var defaultPort = 7711
-var defaultHost = '127.0.0.1'
-var tool = require('./lib/tool')
-var DisqueClient = require('./lib/client')
+const defaultPort = 7711
+const defaultHost = '127.0.0.1'
+const tool = require('./lib/tool')
+const DisqueClient = require('./lib/client')
+const wrapIPv6Address = require('./lib/connection').wrapIPv6Address
 
 exports.log = tool.log
-exports.each = tool.each
 exports.slice = tool.slice
 
 exports.createClient = function (port, host, options) {
-  var addressArray
+  let addressArray
 
   if (Array.isArray(port)) {
     addressArray = normalizeNetAddress(port)
@@ -50,30 +50,25 @@ exports.createClient = function (port, host, options) {
   options.maxAttempts = options.maxAttempts >= 0 ? Math.min(options.maxAttempts, 20) : 20
   options.retryMaxDelay = options.retryMaxDelay >= 3000 ? Math.floor(options.retryMaxDelay) : 5 * 60 * 1000
 
-  var client = new DisqueClient(addressArray, options)
+  let client = new DisqueClient(addressArray, options)
 
-  if (options.handleError !== false) {
-    client.on('error', function (err) {
-      console.error('thunk-disque', err.stack)
-    })
-  }
-
-  var AliasPromise = options.usePromise
+  let AliasPromise = options.usePromise
 
   if (!AliasPromise) return client
 
-  if (typeof AliasPromise !== 'function' && typeof Promise === 'function') AliasPromise = Promise
+  if (typeof AliasPromise !== 'function') AliasPromise = Promise
   if (!AliasPromise.prototype || typeof AliasPromise.prototype.then !== 'function') {
     throw new Error(String(AliasPromise) + ' is not Promise constructor')
   }
   // if `options.usePromise` is available, export promise commands API for a client instance.
-  tool.each(client.clientCommands, function (command) {
-    var commandMethod = client[command]
+  client.clientCommands.map(function (command) {
+    let commandMethod = client[command]
     client[command] = client[command.toUpperCase()] = function () {
-      var thunk = commandMethod.apply(client, arguments)
+      let thunkCommand = commandMethod.apply(client, arguments)
       return new AliasPromise(function (resolve, reject) {
-        thunk(function (err, res) {
-          return err == null ? resolve(res) : reject(err)
+        thunkCommand(function (err, res) {
+          if (err == null) resolve(res)
+          else reject(err)
         })
       })
     }
@@ -81,12 +76,13 @@ exports.createClient = function (port, host, options) {
   return client
 }
 
+// return ['[192.168.0.100]:7711', '[::192.9.5.5]:7711']
 function normalizeNetAddress (array) {
   return array.map(function (options) {
-    if (typeof options === 'string') return options
-    if (typeof options === 'number') return defaultHost + ':' + options
+    if (typeof options === 'string') return wrapIPv6Address(options)
+    if (typeof options === 'number') return wrapIPv6Address(defaultHost, options)
     options.host = options.host || defaultHost
     options.port = options.port || defaultPort
-    return options.host + ':' + options.port
+    return wrapIPv6Address(options.host, options.port)
   })
 }

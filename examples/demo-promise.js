@@ -14,7 +14,6 @@ client.info()
     console.log(res)
     // 'DI81250b3ccbac68e6625e79c8e7c5b286b1dcd2ac05a0SQ'
     return client.show(res)
-
   })
   .then(function (res) {
     console.log(res)
