@@ -47,7 +47,7 @@ exports.createClient = function (port, host, options) {
   options.returnBuffers = !!options.returnBuffers
   options.authPass = (options.authPass || '') + ''
   options.noDelay = options.noDelay == null ? true : !!options.noDelay
-  options.maxAttempts = options.maxAttempts >= 0 ? Math.min(options.maxAttempts, 20) : 20
+  options.maxAttempts = options.maxAttempts >= 0 ? Math.floor(options.maxAttempts) : 5
   options.retryMaxDelay = options.retryMaxDelay >= 3000 ? Math.floor(options.retryMaxDelay) : 5 * 60 * 1000
 
   let client = new DisqueClient(addressArray, options)
