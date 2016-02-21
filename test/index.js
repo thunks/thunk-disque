@@ -2,7 +2,7 @@
 /*global describe, it */
 
 var assert = require('assert')
-var disque = require('../index')
+var disque = require('..')
 
 // ackjob: [-1, ['write', 'fast'], 0, 0, 0],
 // addjob: [-4, ['write', 'denyoom', 'fast'], 0, 0, 0],

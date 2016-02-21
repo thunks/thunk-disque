@@ -1,7 +1,7 @@
 'use strict'
 /*global */
 
-var disque = require('../index')
+var disque = require('..')
 var client = disque.createClient()
 
 client

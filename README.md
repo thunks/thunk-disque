@@ -4,6 +4,7 @@ A thunk/promise-based disque client, support all disque features.
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
+[![Downloads][downloads-image]][downloads-url]
 [![js-standard-style][js-standard-image]][js-standard-url]
 
 ## Features
@@ -120,6 +121,7 @@ var disque = require('thunk-disque')
 - `options`: {Object}, default: `{}`;
   - `handleError`: {Boolean}, *Optional*, Handle client error event. Default: `true`.
   - `authPass`: {String}, *Optional*, Default: `''`.
+  - `autoMeet`: {Boolean}, *Optional*, Default: `false`.
   - `returnBuffers`: {Boolean}, *Optional*, Default: `false`.
   - `usePromise`: {Boolean|Promise}, *Optional*, Default: `false`.
 
@@ -153,9 +155,11 @@ Create a disque client, return the client.
 var client1 = disque.createClient()
 var client2 = disque.createClient(7711, '127.0.0.1')
 
-// connect to 127.0.0.1:7711, 127.0.0.1:7712, 127.0.0.1:7713
+// connect to 127.0.0.1:7711, 127.0.0.1:7712
 // and auto meet them into cluster
-var client3 = disque.createClient([7711, 7712, 7713])
+var client3 = redis.createClient([7711, 7712], {autoMeet: true})
+var client4 = redis.createClient(['127.0.0.1:7711', '127.0.0.1:7712'], {autoMeet: true}) // IPv4
+var client5 = redis.createClient(['[::1]:7711', '[::1]:7712'], {autoMeet: true}) // IPv6
 ```
 
 #### disque.log([...])
@@ -226,6 +230,9 @@ DEBUG=disque node examples/demo
 
 [travis-url]: https://travis-ci.org/thunks/thunk-disque
 [travis-image]: http://img.shields.io/travis/thunks/thunk-disque.svg
+
+[downloads-url]: https://npmjs.org/package/thunk-disque
+[downloads-image]: http://img.shields.io/npm/dm/thunk-disque.svg?style=flat-square
 
 [js-standard-url]: https://github.com/feross/standard
 [js-standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat
