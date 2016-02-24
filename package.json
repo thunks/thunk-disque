@@ -1,6 +1,6 @@
 {
   "name": "thunk-disque",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A thunk/promise-based disque client.",
   "main": "lib/index.js",
   "authors": [
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "debug": "^2.2.0",
-    "respjs": "^3.0.0",
+    "respjs": "^3.0.1",
     "thunks": "^4.1.3"
   },
   "devDependencies": {
