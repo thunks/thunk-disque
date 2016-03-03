@@ -2,8 +2,8 @@
 
 'use strict'
 
-var disque = require('./index')
-var cli = disque.createClient(7711)
+const disque = require('.')
+const cli = disque.createClient(7711)
 
 cli.info()(function * (err, info) {
   if (err) throw err
