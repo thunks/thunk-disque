@@ -1,6 +1,6 @@
 {
   "name": "thunk-disque",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A thunk/promise-based disque client.",
   "main": "lib/index.js",
   "authors": [
