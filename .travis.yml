@@ -2,8 +2,12 @@ language: node_js
 node_js:
   - "4"
   - "5"
-before_script:
+before_install:
   - wget https://github.com/antirez/disque/archive/master.tar.gz -O disque-master.tar.gz
-  - tar xf disque-master.tar.gz && cd disque-master/src/
-  - make && PREFIX=../ make install && cd -
-  - ./disque-master/bin/disque-server &
+  - tar xf disque-master.tar.gz && cd disque-master/src/ && make && PREFIX=../ make install && cd -
+before_script:
+  - ./disque-master/bin/disque-server --daemonize yes
+  - ./disque-master/bin/disque-server --daemonize yes --port 7712
+  - ./disque-master/bin/disque-server --daemonize yes --port 7713
+  - ./disque-master/bin/disque -p 7711 cluster meet 127.0.0.1 7712
+  - ./disque-master/bin/disque -p 7711 cluster meet 127.0.0.1 7713
