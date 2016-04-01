@@ -29,7 +29,7 @@ npm install thunk-disque
 ## Demo
 
 ```js
-var disque = require('thunk-redis')
+var disque = require('thunk-disque')
 var client = disque.createClient([7711, 7712, 7713])
 var clientP = disque.createClient([7711, 7712, 7713], {usePromise: true})
 
