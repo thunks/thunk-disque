@@ -1,7 +1,7 @@
 'use strict'
-/*global describe, it, before, after */
 
 const assert = require('assert')
+const tman = require('tman')
 const disque = require('..')
 const client = disque.createClient()
 const TEST_QUEUE = 'thunk-disque-test'
@@ -46,39 +46,39 @@ function * cleanup () {
   console.log('Clear Up', count)
 }
 
-before(cleanup)
-after(cleanup)
+tman.before(cleanup)
+tman.after(cleanup)
 
-describe('commands', function () {
-  it('ping', function *() {
+tman.suite('commands', function () {
+  tman.it('ping', function *() {
     let res = yield client.ping()
     assert.strictEqual(res, 'PONG')
   })
 
-  it('info', function *() {
+  tman.it('info', function *() {
     let info = yield client.info()
     assert.strictEqual(info.tcp_port, '7711')
     assert.ok(Object.keys(info).length > 0)
     assert.ok(info.connected_clients >= 1)
   })
 
-  it('hello', function *() {
+  tman.it('hello', function *() {
     let res = yield client.hello()
     assert.ok(res.length >= 3)
     assert.ok(res[2].length >= 1)
   })
 
-  it('command', function *() {
+  tman.it('command', function *() {
     let res = yield client.command()
     assert.ok(res.length > 30)
   })
 
-  it('time', function *() {
+  tman.it('time', function *() {
     let time = yield client.time()
     assert.strictEqual(1000 * (1 + time[0]) > Date.now(), true)
   })
 
-  it('addjob, show, getjob, ackjob', function *() {
+  tman.it('addjob, show, getjob, ackjob', function *() {
     let id0 = yield client.addjob(TEST_QUEUE, 'message1', 100)
     let id1 = yield client.addjob([TEST_QUEUE, 'message2', 100])
     let id2 = yield client.addjob(TEST_QUEUE, 'message3', 100, 'maxlen', 3)
@@ -110,7 +110,7 @@ describe('commands', function () {
     assert.strictEqual((yield client.ackjob([id1, id2, id3])), 3)
   })
 
-  it('auth, config', function *() {
+  tman.it('auth, config', function *() {
     let err = null
     try {
       yield client.auth('123456')
