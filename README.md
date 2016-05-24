@@ -216,15 +216,6 @@ client.info()(redis.log)
 #### client.slowlog
 #### client.time
 
-## Debug
-
-Tool: **https://github.com/visionmedia/debug**
-
-**Debug all:**
-```sh
-DEBUG=disque node examples/demo
-```
-
 [npm-url]: https://npmjs.org/package/thunk-disque
 [npm-image]: http://img.shields.io/npm/v/thunk-disque.svg
 
