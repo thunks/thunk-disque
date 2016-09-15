@@ -31,7 +31,7 @@ const TEST_QUEUE = 'thunk-disque-test'
 // working: [2, ['write', 'fast'], 0, 0, 0]
 
 function * cleanup () {
-  let count = 0
+  // let count = 0
   while (true) {
     let len = yield client.qlen(TEST_QUEUE)
     if (!len) break
@@ -40,7 +40,7 @@ function * cleanup () {
       yield this.thunk.delay(1000)
       continue
     }
-    count += jobs.length
+    // count += jobs.length
     yield client.ackjob(jobs.map((job) => job[1]))
   }
 }

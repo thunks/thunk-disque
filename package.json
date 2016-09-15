@@ -1,6 +1,6 @@
 {
   "name": "thunk-disque",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "A thunk/promise-based disque client.",
   "main": "lib/index.js",
   "authors": [
@@ -25,15 +25,15 @@
     "pipelining"
   ],
   "engines": {
-    "node": ">= 4.0"
+    "node": ">=4"
   },
   "dependencies": {
     "respjs": "^3.2.0",
-    "thunks": "^4.5.0"
+    "thunks": "^4.7.1"
   },
   "devDependencies": {
-    "standard": "^7.1.2",
-    "tman": "^1.0.6"
+    "standard": "^8.0.0",
+    "tman": "^1.4.5"
   },
   "license": "MIT",
   "bugs": {

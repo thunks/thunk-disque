@@ -1,5 +1,5 @@
 'use strict'
-/*global */
+/* global */
 
 var disque = require('..')
 var client = disque.createClient([7711, 7712, 7713], {usePromise: true})

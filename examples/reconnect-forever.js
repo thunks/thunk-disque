@@ -1,5 +1,5 @@
 'use strict'
-/*global */
+/* global */
 
 var disque = require('..')
 var client = disque.createClient()
